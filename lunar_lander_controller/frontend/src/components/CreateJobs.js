@@ -11,6 +11,24 @@ export default class CreateJobs extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      crashReward: this.defaultCrashReward,
+      landReward: this.defaultLandReward,
+      leftLegReward: this.defaultLeftLegReward,
+      rightLegReward: this.defaultRightLegReward,
+      mainEngineReward: this.defaultMainEngineReward,
+      sideEngineReward: this.defaultSideEngineReward,
+    };
+    this.handleChange = this.handleChange.bind(this)
+    this.handleRunButtonPressed = this.handleRunButtonPressed.bind(this)
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleRunButtonPressed(){
+    console.log(this.state);
   }
 
   render() {
@@ -23,6 +41,8 @@ export default class CreateJobs extends Component {
               id="crash-reward"
               label="Crash Reward"
               type="number"
+              name="crashReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultCrashReward}
               InputLabelProps={{
                 shrink: true,
@@ -32,9 +52,11 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="crash-reward"
+              id="land-reward"
               label="Land Reward"
               type="number"
+              name="landReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultLandReward}
               InputLabelProps={{
                 shrink: true,
@@ -44,9 +66,11 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="crash-reward"
+              id="left-leg-reward"
               label="Left Leg Reward"
               type="number"
+              name="leftLegReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultLeftLegReward}
               InputLabelProps={{
                 shrink: true,
@@ -56,9 +80,11 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="crash-reward"
+              id="right-leg-reward"
               label="Right Leg Reward"
               type="number"
+              name="rightLegReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultRightLegReward}
               InputLabelProps={{
                 shrink: true,
@@ -68,9 +94,11 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="crash-reward"
+              id="main-engine-reward"
               label="Main Engine Reward"
               type="number"
+              name="mainEngineReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultMainEngineReward}
               InputLabelProps={{
                 shrink: true,
@@ -80,9 +108,11 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="crash-reward"
+              id="side-engine-reward"
               label="Side Engine Reward"
               type="number"
+              name="sideEngineReward"
+              onChange={this.handleChange}
               defaultValue={this.defaultSideEngineReward}
               InputLabelProps={{
                 shrink: true,
