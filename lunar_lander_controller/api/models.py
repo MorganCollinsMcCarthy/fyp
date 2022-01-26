@@ -17,7 +17,7 @@ def generate_unique_code():
 
 
 class Job(models.Model):
-    code = models.CharField(max_length=8, default="", unique=True)
+    code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     complete = models.BooleanField(null=False, default=False)
     crash_reward = models.IntegerField(null=False, default=-100)
     land_reward = models.IntegerField(null=False, default=100)
