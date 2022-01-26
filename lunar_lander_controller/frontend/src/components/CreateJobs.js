@@ -28,7 +28,21 @@ export default class CreateJobs extends Component {
   }
 
   handleRunButtonPressed(){
-    console.log(this.state);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        crash_reward: this.state.crashReward,
+        land_reward: this.state.landReward,
+        left_leg_reward: this.state.leftLegReward,
+        right_leg_reward: this.state.rightLegReward,
+        main_engine_reward: this.state.mainEngineReward,
+        side_engine_reward: this.state.sideEngineReward,
+      }),
+    };
+    fetch("/api/create-job", requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
 
   render() {
