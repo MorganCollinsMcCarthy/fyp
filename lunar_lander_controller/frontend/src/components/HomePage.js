@@ -5,9 +5,7 @@ import Job from "./Job";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect,
-  Routes,
+  Switch,
 } from "react-router-dom";
 
 export default class HomePage extends Component {
@@ -18,12 +16,14 @@ export default class HomePage extends Component {
   render() {
     return (
       <Router>
-        <Routes>
-          <Route path="/" element={<p>Home</p>} />
-          <Route path="/create" element={<CreateJobs />} />
-          <Route path="/view" element={<ViewJobs />} />
-          <Route path="/job/:jobCode" element={<Job />} />
-        </Routes>
+        <Switch>
+          <Route exact path="/">
+            <p>Home</p>
+          </Route>
+          <Route path="/create" component={CreateJobs} />
+          <Route path="/view" component={ViewJobs} />
+          <Route path="/job/:jobCode" component={Job} />
+        </Switch>
       </Router>
     );
   }

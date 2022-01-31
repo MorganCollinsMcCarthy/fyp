@@ -11,10 +11,12 @@ export default class Job extends Component {
       mainEngineReward: -0.3,
       sideEngineReward: -0.03,
     };
+    this.jobCode = this.props.match.params.jobCode;
   }
 
   render(){
       return <div>
+          <h2>{this.jobCode}</h2>
           <p>crashReward: {this.state.crashReward}</p>
           <p>landReward: {this.state.landReward}</p>
           <p>leftLegReward: {this.state.leftLegReward}</p>
