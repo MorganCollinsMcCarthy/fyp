@@ -12,17 +12,35 @@ export default class Job extends Component {
       sideEngineReward: -0.03,
     };
     this.jobCode = this.props.match.params.jobCode;
+    this.getJobDetails();
   }
 
-  render(){
-      return <div>
-          <h2>{this.jobCode}</h2>
-          <p>crashReward: {this.state.crashReward}</p>
-          <p>landReward: {this.state.landReward}</p>
-          <p>leftLegReward: {this.state.leftLegReward}</p>
-          <p>rightLegReward: {this.state.rightLegReward}</p>
-          <p>mainEngineReward: {this.state.mainEngineReward}</p>
-          <p>sideEngineReward: {this.state.sideEngineReward}</p>
+  getJobDetails() {
+    fetch("/api/get-job" + "?code=" + this.jobCode)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          crashReward: data.crash_reward,
+          landReward: data.land_reward,
+          leftLegReward: data.left_leg_reward,
+          rightLegReward: data.right_leg_reward,
+          mainEngineReward: data.main_engine_reward,
+          sideEngineReward: data.side_engine_reward,
+        });
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>{this.jobCode}</h2>
+        <p>crashReward: {this.state.crashReward}</p>
+        <p>landReward: {this.state.landReward}</p>
+        <p>leftLegReward: {this.state.leftLegReward}</p>
+        <p>rightLegReward: {this.state.rightLegReward}</p>
+        <p>mainEngineReward: {this.state.mainEngineReward}</p>
+        <p>sideEngineReward: {this.state.sideEngineReward}</p>
       </div>
+    );
   }
 }
