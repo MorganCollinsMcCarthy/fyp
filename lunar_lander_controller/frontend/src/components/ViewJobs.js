@@ -16,6 +16,10 @@ export default class ViewJobs extends Component {
       .then((data) => this.setState({ jobs: data }));
   }
 
+  handleRowClick(code) {
+    this.props.history.push("/job/" + code);
+  }
+
   render() {
     return (
       <TableContainer component={Paper}>
@@ -36,7 +40,10 @@ export default class ViewJobs extends Component {
           </TableHead>
           <TableBody>
             {this.state.jobs.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow 
+              key={row.id}
+              onClick={() => this.handleRowClick(row.code)}
+              >
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
