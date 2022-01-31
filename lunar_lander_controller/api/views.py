@@ -12,6 +12,21 @@ class JobView(generics.ListAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 
+class GetJob(APIView):
+    serializer_class = JobSerializer
+    lookup_url_kwarg = 'code'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code != None:
+            job = Job.objects.filter(code=code)
+            if len(job) > 0:
+                data = JobSerializer(job[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Job Not Found': 'Invalid Job Code.'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
 class CreateJobView(APIView):
     serializer_class = CreateJobSerializer
 
