@@ -92,6 +92,13 @@ class LunarLander(gym.Env, EzPickle):
     continuous = False
 
     def __init__(self):
+        self.crash_reward = -100
+        self.land_reward = 100
+        self.first_leg_reward = 10
+        self.second_leg_reward = 10
+        self.main_engine_reward = 0.03
+        self.side_engine_reward = 0.03
+
         EzPickle.__init__(self)
         self.seed()
         self.viewer = None
@@ -262,6 +269,14 @@ class LunarLander(gym.Env, EzPickle):
             self.world.DestroyBody(self.particles.pop(0))
 
     def step(self, action):
+
+        print(self.crash_reward)
+        print(self.land_reward)
+        print(self.first_leg_reward)
+        print(self.second_leg_reward)
+        print(self.main_engine_reward)
+        print(self.side_engine_reward)
+
         if self.continuous:
             action = np.clip(action, -1, +1).astype(np.float32)
         else:
@@ -362,8 +377,8 @@ class LunarLander(gym.Env, EzPickle):
             -100 * np.sqrt(state[0] * state[0] + state[1] * state[1])
             - 100 * np.sqrt(state[2] * state[2] + state[3] * state[3])
             - 100 * abs(state[4])
-            + 10 * state[6]
-            + 10 * state[7]
+            + self.first_leg_reward * state[6]
+            + self.second_leg_reward * state[7]
         )  # And ten points for legs contact, the idea is if you
         # lose contact again after landing, you get negative reward
         if self.prev_shaping is not None:
@@ -371,17 +386,17 @@ class LunarLander(gym.Env, EzPickle):
         self.prev_shaping = shaping
 
         reward -= (
-            m_power * 0.30
+            m_power * self.main_engine_reward
         )  # less fuel spent is better, about -30 for heuristic landing
-        reward -= s_power * 0.03
+        reward -= s_power * self.main_engine_reward
 
         done = False
         if self.game_over or abs(state[0]) >= 1.0:
             done = True
-            reward = -100
+            reward = self.crash_reward
         if not self.lander.awake:
             done = True
-            reward = +100
+            reward = self.land_reward
         return np.array(state, dtype=np.float32), reward, done, {}
 
     def render(self, mode="human"):
