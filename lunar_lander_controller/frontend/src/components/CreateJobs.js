@@ -4,8 +4,8 @@ import { FormControl, Grid, TextField, Button } from "@mui/material";
 export default class CreateJobs extends Component {
   defaultCrashReward = -100;
   defaultLandReward = 100;
-  defaultRightLegReward = 10;
-  defaultLeftLegReward = 10;
+  defaultSecondLegReward = 10;
+  defaultFirstLegReward = 10;
   defaultMainEngineReward = 0.3;
   defaultSideEngineReward = 0.03;
 
@@ -14,8 +14,8 @@ export default class CreateJobs extends Component {
     this.state = {
       crashReward: this.defaultCrashReward,
       landReward: this.defaultLandReward,
-      leftLegReward: this.defaultLeftLegReward,
-      rightLegReward: this.defaultRightLegReward,
+      firstLegReward: this.defaultFirstLegReward,
+      secondLegReward: this.defaultSecondLegReward,
       mainEngineReward: this.defaultMainEngineReward,
       sideEngineReward: this.defaultSideEngineReward,
     };
@@ -34,8 +34,8 @@ export default class CreateJobs extends Component {
       body: JSON.stringify({
         crash_reward: this.state.crashReward,
         land_reward: this.state.landReward,
-        first_leg_reward: this.state.leftLegReward,
-        second_leg_reward: this.state.rightLegReward,
+        first_leg_reward: this.state.firstLegReward,
+        second_leg_reward: this.state.secondLegReward,
         main_engine_reward: this.state.mainEngineReward,
         side_engine_reward: this.state.sideEngineReward,
       }),
@@ -80,12 +80,12 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="left-leg-reward"
-              label="Left Leg Reward"
+              id="first-leg-reward"
+              label="First Leg Reward"
               type="number"
-              name="leftLegReward"
+              name="firstLegReward"
               onChange={this.handleChange}
-              defaultValue={this.defaultLeftLegReward}
+              defaultValue={this.defaultFirstLegReward}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -94,12 +94,12 @@ export default class CreateJobs extends Component {
           <FormControl>
             <TextField
               required
-              id="right-leg-reward"
-              label="Right Leg Reward"
+              id="second-leg-reward"
+              label="Second Leg Reward"
               type="number"
-              name="rightLegReward"
+              name="secondLegReward"
               onChange={this.handleChange}
-              defaultValue={this.defaultRightLegReward}
+              defaultValue={this.defaultSecondLegReward}
               InputLabelProps={{
                 shrink: true,
               }}

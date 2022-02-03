@@ -31,8 +31,8 @@ export default class ViewJobs extends Component {
               <TableCell>Complete</TableCell>
               <TableCell>Crash Reward</TableCell>
               <TableCell>Land Reward</TableCell>
-              <TableCell>Left Leg Reward</TableCell>
-              <TableCell>Right Leg Eeward</TableCell>
+              <TableCell>First Leg Reward</TableCell>
+              <TableCell>Second Leg Reward</TableCell>
               <TableCell>Main Engine Reward</TableCell>
               <TableCell>Side Engine Reward</TableCell>
               <TableCell>Created</TableCell>

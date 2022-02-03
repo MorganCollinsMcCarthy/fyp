@@ -6,8 +6,8 @@ export default class Job extends Component {
     this.state = {
       crashReward: -100,
       landReward: 100,
-      leftLegReward: 10,
-      rightLegReward: 10,
+      firstLegReward: 10,
+      secondLegReward: 10,
       mainEngineReward: 0.3,
       sideEngineReward: 0.03,
     };
@@ -22,8 +22,8 @@ export default class Job extends Component {
         this.setState({
           crashReward: data.crash_reward,
           landReward: data.land_reward,
-          leftLegReward: data.first_leg_reward,
-          rightLegReward: data.second_leg_reward,
+          firstLegReward: data.first_leg_reward,
+          secondLegReward: data.second_leg_reward,
           mainEngineReward: data.main_engine_reward,
           sideEngineReward: data.side_engine_reward,
         });
@@ -36,8 +36,8 @@ export default class Job extends Component {
         <h2>{this.jobCode}</h2>
         <p>crashReward: {this.state.crashReward}</p>
         <p>landReward: {this.state.landReward}</p>
-        <p>leftLegReward: {this.state.leftLegReward}</p>
-        <p>rightLegReward: {this.state.rightLegReward}</p>
+        <p>firstLegReward: {this.state.firstLegReward}</p>
+        <p>secondLegReward: {this.state.secondLegReward}</p>
         <p>mainEngineReward: {this.state.mainEngineReward}</p>
         <p>sideEngineReward: {this.state.sideEngineReward}</p>
       </div>
