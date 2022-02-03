@@ -21,7 +21,7 @@ class Job(models.Model):
     complete = models.BooleanField(null=False, default=False)
     crash_reward = models.IntegerField(null=False, default=-100)
     land_reward = models.IntegerField(null=False, default=100)
-    left_leg_reward = models.IntegerField(null=False, default=10)
+    first_leg_reward = models.IntegerField(null=False, default=10)
     right_leg_reward = models.IntegerField(null=False, default=10)
     main_engine_reward = models.FloatField(null=False, default=0.3)
     side_engine_reward = models.FloatField(null=False, default=0.03)

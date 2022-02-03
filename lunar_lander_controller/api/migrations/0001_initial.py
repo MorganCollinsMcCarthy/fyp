@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('complete', models.BooleanField(default=False)),
                 ('crash_reward', models.IntegerField(default=-100)),
                 ('land_reward', models.IntegerField(default=100)),
-                ('left_leg_reward', models.IntegerField(default=10)),
+                ('first_leg_reward', models.IntegerField(default=10)),
                 ('right_leg_reward', models.IntegerField(default=10)),
                 ('main_engine_reward', models.FloatField(default=0.3)),
                 ('side_engine_reward', models.FloatField(default=0.03)),

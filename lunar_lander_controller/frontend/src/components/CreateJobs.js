@@ -34,7 +34,7 @@ export default class CreateJobs extends Component {
       body: JSON.stringify({
         crash_reward: this.state.crashReward,
         land_reward: this.state.landReward,
-        left_leg_reward: this.state.leftLegReward,
+        first_leg_reward: this.state.leftLegReward,
         right_leg_reward: this.state.rightLegReward,
         main_engine_reward: this.state.mainEngineReward,
         side_engine_reward: this.state.sideEngineReward,
