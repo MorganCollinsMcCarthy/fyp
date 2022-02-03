@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('crash_reward', models.IntegerField(default=-100)),
                 ('land_reward', models.IntegerField(default=100)),
                 ('first_leg_reward', models.IntegerField(default=10)),
-                ('right_leg_reward', models.IntegerField(default=10)),
+                ('second_leg_reward', models.IntegerField(default=10)),
                 ('main_engine_reward', models.FloatField(default=0.3)),
                 ('side_engine_reward', models.FloatField(default=0.03)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),

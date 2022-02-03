@@ -23,7 +23,7 @@ export default class Job extends Component {
           crashReward: data.crash_reward,
           landReward: data.land_reward,
           leftLegReward: data.first_leg_reward,
-          rightLegReward: data.right_leg_reward,
+          rightLegReward: data.second_leg_reward,
           mainEngineReward: data.main_engine_reward,
           sideEngineReward: data.side_engine_reward,
         });

@@ -36,11 +36,11 @@ class CreateJobView(APIView):
             crash_reward = serializer.data.get('crash_reward')
             land_reward = serializer.data.get('land_reward')
             first_leg_reward = serializer.data.get('first_leg_reward')
-            right_leg_reward = serializer.data.get('right_leg_reward')
+            second_leg_reward = serializer.data.get('second_leg_reward')
             main_engine_reward = serializer.data.get('main_engine_reward')
             side_engine_reward = serializer.data.get('side_engine_reward')
             job = Job(crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
-                            right_leg_reward=right_leg_reward,main_engine_reward=main_engine_reward,side_engine_reward=side_engine_reward)
+                            second_leg_reward=second_leg_reward,main_engine_reward=main_engine_reward,side_engine_reward=side_engine_reward)
             job.save()
             return Response(JobSerializer(job).data, status=status.HTTP_201_CREATED)
 

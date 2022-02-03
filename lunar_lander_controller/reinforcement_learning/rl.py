@@ -9,7 +9,7 @@ env = environment.LunarLander()
 env.crash_reward = int(sys.argv[1])
 env.land_reward = int(sys.argv[2])
 env.first_leg_reward = int(sys.argv[3])
-env.right_leg_reward = int(sys.argv[4])
+env.second_leg_reward = int(sys.argv[4])
 env.main_engine_reward = float(sys.argv[5])
 env.side_engine_reward = float(sys.argv[6])
 

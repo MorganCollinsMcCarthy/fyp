@@ -35,7 +35,7 @@ export default class CreateJobs extends Component {
         crash_reward: this.state.crashReward,
         land_reward: this.state.landReward,
         first_leg_reward: this.state.leftLegReward,
-        right_leg_reward: this.state.rightLegReward,
+        second_leg_reward: this.state.rightLegReward,
         main_engine_reward: this.state.mainEngineReward,
         side_engine_reward: this.state.sideEngineReward,
       }),

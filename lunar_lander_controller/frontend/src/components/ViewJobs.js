@@ -52,7 +52,7 @@ export default class ViewJobs extends Component {
                 <TableCell align="left">{row.crash_reward}</TableCell>
                 <TableCell align="left">{row.land_reward}</TableCell>
                 <TableCell align="left">{row.first_leg_reward}</TableCell>
-                <TableCell align="left">{row.right_leg_reward}</TableCell>
+                <TableCell align="left">{row.second_leg_reward}</TableCell>
                 <TableCell align="left">{row.main_engine_reward}</TableCell>
                 <TableCell align="left">{row.side_engine_reward}</TableCell>
                 <TableCell align="left">{row.created_at}</TableCell>
