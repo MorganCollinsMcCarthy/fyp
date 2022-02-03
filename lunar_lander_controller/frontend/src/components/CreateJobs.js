@@ -6,8 +6,8 @@ export default class CreateJobs extends Component {
   defaultLandReward = 100;
   defaultRightLegReward = 10;
   defaultLeftLegReward = 10;
-  defaultMainEngineReward = -0.3;
-  defaultSideEngineReward = -0.03;
+  defaultMainEngineReward = 0.3;
+  defaultSideEngineReward = 0.03;
 
   constructor(props) {
     super(props);

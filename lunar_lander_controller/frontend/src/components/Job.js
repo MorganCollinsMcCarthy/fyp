@@ -8,8 +8,8 @@ export default class Job extends Component {
       landReward: 100,
       leftLegReward: 10,
       rightLegReward: 10,
-      mainEngineReward: -0.3,
-      sideEngineReward: -0.03,
+      mainEngineReward: 0.3,
+      sideEngineReward: 0.03,
     };
     this.jobCode = this.props.match.params.jobCode;
     this.getJobDetails();
