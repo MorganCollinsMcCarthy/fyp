@@ -42,6 +42,7 @@ class CreateJobView(APIView):
             second_leg_reward = serializer.data.get('second_leg_reward')
             main_engine_reward = serializer.data.get('main_engine_reward')
             side_engine_reward = serializer.data.get('side_engine_reward')
+            algorithm = serializer.data.get('algorithm')
             job = Job(crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
                       second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward)
             job.save()
