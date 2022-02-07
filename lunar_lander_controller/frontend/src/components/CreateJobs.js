@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormControl, Grid, TextField, Button } from "@mui/material";
+import { FormControl, Grid, TextField, Button, Radio, RadioGroup, FormControlLabel } from "@mui/material";
 
 export default class CreateJobs extends Component {
   defaultCrashReward = -100;
@@ -8,6 +8,7 @@ export default class CreateJobs extends Component {
   defaultFirstLegReward = 10;
   defaultMainEngineReward = 0.3;
   defaultSideEngineReward = 0.03;
+  defaultAlgorithm = "DQN";
 
   constructor(props) {
     super(props);
@@ -18,6 +19,7 @@ export default class CreateJobs extends Component {
       secondLegReward: this.defaultSecondLegReward,
       mainEngineReward: this.defaultMainEngineReward,
       sideEngineReward: this.defaultSideEngineReward,
+      algorithm: this.defaultAlgorithm
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleRunButtonPressed = this.handleRunButtonPressed.bind(this)
@@ -134,6 +136,31 @@ export default class CreateJobs extends Component {
             />
           </FormControl>
         </Grid>
+
+        <Grid item xs={12} align="center">
+          <FormControl component="fieldset">
+            <RadioGroup
+              row
+              name="algorithm"
+              defaultValue="DQN"
+              onChange={this.handleChange}
+            >
+              <FormControlLabel
+                value="DQN"
+                control={<Radio color="primary" />}
+                label="DQN"
+                labelPlacement="top"
+              />
+              <FormControlLabel
+                value="TEST"
+                control={<Radio color="primary" />}
+                label="TEST"
+                labelPlacement="top"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+
         <Grid item xs={12} align="center">
           <Button
             color="primary"

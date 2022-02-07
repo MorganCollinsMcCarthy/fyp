@@ -270,12 +270,12 @@ class LunarLander(gym.Env, EzPickle):
 
     def step(self, action):
 
-        print(self.crash_reward)
-        print(self.land_reward)
-        print(self.first_leg_reward)
-        print(self.second_leg_reward)
-        print(self.main_engine_reward)
-        print(self.side_engine_reward)
+        #print(self.crash_reward)
+        #print(self.land_reward)
+        #print(self.first_leg_reward)
+        #print(self.second_leg_reward)
+        #print(self.main_engine_reward)
+        #print(self.side_engine_reward)
 
         if self.continuous:
             action = np.clip(action, -1, +1).astype(np.float32)

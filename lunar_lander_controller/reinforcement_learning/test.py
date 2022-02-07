@@ -1,10 +1,10 @@
 from subprocess import Popen
-crash_reward = -200
-land_reward = 300
-first_leg_reward = 20
-second_leg_reward = 20
-main_engine_reward = 0.6
-side_engine_reward = 0.06
+crash_reward = -100
+land_reward = 100
+first_leg_reward = 10
+second_leg_reward = 10
+main_engine_reward = 0.3
+side_engine_reward = 0.03
 
 
 p = Popen(['python', 'rl.py', str(crash_reward), str(land_reward),
