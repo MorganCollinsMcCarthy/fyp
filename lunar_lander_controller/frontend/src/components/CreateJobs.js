@@ -40,6 +40,7 @@ export default class CreateJobs extends Component {
         second_leg_reward: this.state.secondLegReward,
         main_engine_reward: this.state.mainEngineReward,
         side_engine_reward: this.state.sideEngineReward,
+        algorithm: this.state.algorithm
       }),
     };
     fetch("/api/create-job", requestOptions)

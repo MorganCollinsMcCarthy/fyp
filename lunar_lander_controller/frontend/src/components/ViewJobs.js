@@ -29,6 +29,7 @@ export default class ViewJobs extends Component {
               <TableCell>ID</TableCell>
               <TableCell>Code</TableCell>
               <TableCell>Complete</TableCell>
+              <TableCell>Algorithm</TableCell>
               <TableCell>Crash Reward</TableCell>
               <TableCell>Land Reward</TableCell>
               <TableCell>First Leg Reward</TableCell>
@@ -49,6 +50,7 @@ export default class ViewJobs extends Component {
                 </TableCell>
                 <TableCell align="left">{row.code}</TableCell>
                 <TableCell align="left">{row.complete === false? "False": "True" }</TableCell>
+                <TableCell align="left">{row.algorithm}</TableCell>
                 <TableCell align="left">{row.crash_reward}</TableCell>
                 <TableCell align="left">{row.land_reward}</TableCell>
                 <TableCell align="left">{row.first_leg_reward}</TableCell>

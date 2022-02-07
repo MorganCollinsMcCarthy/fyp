@@ -26,5 +26,5 @@ class Job(models.Model):
     main_engine_reward = models.FloatField(null=False, default=0.3)
     side_engine_reward = models.FloatField(null=False, default=0.03)
     side_engine_reward = models.FloatField(null=False, default=0.03)
-    algorithm = models.CharField(max_length=5, default="DQN")
+    algorithm = models.CharField(null=False, max_length=5, default="DQN")
     created_at = models.DateTimeField(auto_now_add=True)
