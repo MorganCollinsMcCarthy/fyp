@@ -8,4 +8,4 @@ side_engine_reward = 0.03
 
 
 p = Popen(['python', 'rl.py', str(crash_reward), str(land_reward),
-           str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward)])
+           str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward),"DQN","AAA"])

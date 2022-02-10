@@ -5,6 +5,19 @@ from .models import Job
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from subprocess import Popen
+import string
+import random
+
+
+def generate_unique_code():
+    length = 6
+
+    while True:
+        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        if Job.objects.filter(code=code).count() == 0:
+            break
+
+    return code
 
 # Create your views here.
 
@@ -36,6 +49,7 @@ class CreateJobView(APIView):
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
+            code = generate_unique_code()
             crash_reward = serializer.data.get('crash_reward')
             land_reward = serializer.data.get('land_reward')
             first_leg_reward = serializer.data.get('first_leg_reward')
@@ -43,12 +57,12 @@ class CreateJobView(APIView):
             main_engine_reward = serializer.data.get('main_engine_reward')
             side_engine_reward = serializer.data.get('side_engine_reward')
             algorithm = serializer.data.get('algorithm')
-            job = Job(crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
+            job = Job(code=code,crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
                       second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward, algorithm=algorithm)
             job.save()
 
             p = Popen(['python', 'reinforcement_learning/rl.py', str(crash_reward), str(land_reward),
-                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward)])
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), algorithm, code])
 
             return Response(JobSerializer(job).data, status=status.HTTP_201_CREATED)
 
