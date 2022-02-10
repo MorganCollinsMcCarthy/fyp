@@ -4,7 +4,8 @@ from .serializers import JobSerializer, CreateJobSerializer
 from .models import Job
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from subprocess import Popen
+import threading
+import subprocess
 import string
 import random
 
@@ -19,8 +20,17 @@ def generate_unique_code():
 
     return code
 
-# Create your views here.
+def popen_and_call(on_exit, popen_args):
+    def run_in_thread(on_exit, popen_args):
+        proc = subprocess.Popen(popen_args)
+        proc.wait()
+        on_exit()
+        return
+    thread = threading.Thread(target=run_in_thread, args=(on_exit, popen_args))
+    thread.start()
+    return thread
 
+# Create your views here.
 
 class JobView(generics.ListAPIView):
     queryset = Job.objects.all()
@@ -61,8 +71,13 @@ class CreateJobView(APIView):
                       second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward, algorithm=algorithm)
             job.save()
 
-            p = Popen(['python', 'reinforcement_learning/rl.py', str(crash_reward), str(land_reward),
+            def jobComplete():
+                job.complete = True
+                job.save()
+
+            popen_and_call(jobComplete, ['python', 'reinforcement_learning/rl.py', str(crash_reward), str(land_reward),
                        str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), algorithm, code])
+
 
             return Response(JobSerializer(job).data, status=status.HTTP_201_CREATED)
 
