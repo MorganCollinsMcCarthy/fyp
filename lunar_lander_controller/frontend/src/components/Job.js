@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import LineChart from "./LineChart";
 
 export default class Job extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ export default class Job extends Component {
         <p>secondLegReward: {this.state.secondLegReward}</p>
         <p>mainEngineReward: {this.state.mainEngineReward}</p>
         <p>sideEngineReward: {this.state.sideEngineReward}</p>
+        <LineChart code={this.jobCode}/>
       </div>
     );
   }

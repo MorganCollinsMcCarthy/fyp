@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default class ViewJobs extends Component {
   state = { jobs: [] };
@@ -28,7 +29,7 @@ export default class ViewJobs extends Component {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Code</TableCell>
-              <TableCell>Complete</TableCell>
+              <TableCell>Job Status</TableCell>
               <TableCell>Algorithm</TableCell>
               <TableCell>Crash Reward</TableCell>
               <TableCell>Land Reward</TableCell>
@@ -49,7 +50,7 @@ export default class ViewJobs extends Component {
                   {row.id}
                 </TableCell>
                 <TableCell align="left">{row.code}</TableCell>
-                <TableCell align="left">{row.complete === false? "False": "True" }</TableCell>
+                <TableCell align="left">{row.complete === false? <LinearProgress/>: "Complete" }</TableCell>
                 <TableCell align="left">{row.algorithm}</TableCell>
                 <TableCell align="left">{row.crash_reward}</TableCell>
                 <TableCell align="left">{row.land_reward}</TableCell>
