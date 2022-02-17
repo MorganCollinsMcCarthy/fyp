@@ -41,7 +41,8 @@ export default class Job extends Component {
         <p>secondLegReward: {this.state.secondLegReward}</p>
         <p>mainEngineReward: {this.state.mainEngineReward}</p>
         <p>sideEngineReward: {this.state.sideEngineReward}</p>
-        <LineChart code={this.jobCode}/>
+        <LineChart code={this.jobCode} type="rollout_ep_rew_mean"/>
+        <LineChart code={this.jobCode} type="rollout_ep_len_mean"/>
       </div>
     );
   }

@@ -35,8 +35,9 @@ const LineChart = (props) => {
         .then((response) => {
           if (response.ok) {
             response.text().then((text) => {
-              let data = text.replaceAll("/", "_").match(/.+/g).map(JSON.parse);
-              setChart(data);
+              let filtered = text.replaceAll("/", "_").split('\n').filter(function (s) { return s.match(props.type) }).join('\n')
+              let data = filtered.match(/.+/g).map(JSON.parse);
+              setChart(data)
             });
           }
         })
@@ -51,8 +52,8 @@ const LineChart = (props) => {
     labels: chart?.map((x) => x.time_total_timesteps),
     datasets: [
       {
-        label: props.code,
-        data: chart?.map((x) => x.rollout_ep_rew_mean),
+        label: props.type,
+        data: chart?.map((x) => x[props.type]),
         backgroundColor: ["rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)"],
         borderWidth: 1,
