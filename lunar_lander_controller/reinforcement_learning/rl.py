@@ -5,6 +5,9 @@ import gym
 from stable_baselines3 import DQN
 from stable_baselines3 import A2C
 from stable_baselines3.common.logger import configure
+from stable_baselines3.common.callbacks import EvalCallback
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.vec_env import VecVideoRecorder, DummyVecEnv
 
 #Env and custom rewards 
 env = environment.LunarLander()
@@ -21,10 +24,32 @@ log_path = "./reinforcement_learning/logs/"+sys.argv[8]
 # set up logger
 new_logger = configure(log_path, ["csv","json","tensorboard"])
 
+
+# Use deterministic actions for evaluation
+eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
+                             deterministic=True, render=False)
+
 model = DQN("MlpPolicy", env, verbose=1)
 
 
 # Set new logger
 model.set_logger(new_logger)
-model.learn(1000000)
-print("Done")
+model.learn(2000000,callback=eval_callback)
+
+del model  # delete trained model to demonstrate loading
+model = DQN.load(log_path+"/best_model", env=env)
+
+video_length = 500
+
+vec_env = DummyVecEnv([lambda: env])
+vid_env = VecVideoRecorder(vec_env, log_path,
+                       record_video_trigger=lambda x: x == 0, video_length=video_length,
+                       name_prefix="walker_3")
+
+obs = vid_env.reset()
+for _ in range(video_length + 1):
+    action, _states = model.predict(obs)
+    obs, _, _, _ = vid_env.step(action)
+
+# Save the video
+vid_env.close()

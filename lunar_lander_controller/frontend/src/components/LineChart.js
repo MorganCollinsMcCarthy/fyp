@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 
-import { Line } from "react-chartjs-2";
+import { Scatter } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -35,9 +35,15 @@ const LineChart = (props) => {
         .then((response) => {
           if (response.ok) {
             response.text().then((text) => {
-              let filtered = text.replaceAll("/", "_").split('\n').filter(function (s) { return s.match(props.type) }).join('\n')
+              let filtered = text
+                .replaceAll("/", "_")
+                .split("\n")
+                .filter(function (s) {
+                  return s.match(props.type);
+                })
+                .join("\n");
               let data = filtered.match(/.+/g).map(JSON.parse);
-              setChart(data)
+              setChart(data);
             });
           }
         })
@@ -48,29 +54,25 @@ const LineChart = (props) => {
     getData();
   }, []);
 
-  var data = {
-    labels: chart?.map((x) => x.time_total_timesteps),
+  const transformedData = chart.map((obj) => {
+    return {
+      x: obj.time_total_timesteps,
+      y: obj[props.type],
+    };
+  });
+
+  const data = {
     datasets: [
       {
         label: props.type,
-        data: chart?.map((x) => x[props.type]),
-        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-        borderColor: ["rgba(255, 99, 132, 1)"],
-        borderWidth: 1,
+        showLine: true,
+        data: transformedData,
+        backgroundColor: "rgb(255, 99, 132)",
       },
     ],
   };
 
-  var options = {
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  return <Line data={data} />;
+  return <Scatter data={data} />;
 };
 
 export default LineChart;
