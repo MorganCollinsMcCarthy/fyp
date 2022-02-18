@@ -1,0 +1,2 @@
+{"rollout/exploration_rate": 0.05, "time/episodes": 4, "rollout/ep_rew_mean": -162.62790575, "rollout/ep_len_mean": 93.5, "time/fps": 3730, "time/time_elapsed": 0, "time/total_timesteps": 374}
+{"rollout/exploration_rate": 0.05, "time/episodes": 8, "rollout/ep_rew_mean": -176.12941, "rollout/ep_len_mean": 90.75, "time/fps": 3696, "time/time_elapsed": 0, "time/total_timesteps": 726}

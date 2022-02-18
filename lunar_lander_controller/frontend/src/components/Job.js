@@ -102,33 +102,33 @@ export default class Job extends Component {
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="TEST"
+                        value="AC2"
                         control={<Radio color="primary" />}
-                        label="TEST"
+                        label="AC2"
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="TEST"
+                        value="DDPG"
                         control={<Radio color="primary" />}
-                        label="TEST"
+                        label="DDPG"
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="TEST"
+                        value="HER"
                         control={<Radio color="primary" />}
-                        label="TEST"
+                        label="HER"
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="TEST"
+                        value="PPO"
                         control={<Radio color="primary" />}
-                        label="TEST"
+                        label="PPO"
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="TEST"
+                        value="SAC"
                         control={<Radio color="primary" />}
-                        label="TEST"
+                        label="SAC"
                         labelPlacement="top"
                       />
                     </RadioGroup>
