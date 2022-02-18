@@ -7,6 +7,8 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Switch,
+  FormGroup,
 } from "@mui/material";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -20,7 +22,6 @@ export default class CreateJobs extends Component {
   defaultFirstLegReward = 10;
   defaultMainEngineReward = 0.3;
   defaultSideEngineReward = 0.03;
-  defaultAlgorithm = "DQN";
 
   constructor(props) {
     super(props);
@@ -31,14 +32,24 @@ export default class CreateJobs extends Component {
       secondLegReward: this.defaultSecondLegReward,
       mainEngineReward: this.defaultMainEngineReward,
       sideEngineReward: this.defaultSideEngineReward,
-      algorithm: this.defaultAlgorithm,
+      dqn: true,
+      a2c: false,
+      ddpg: false,
+      her: false,
+      ppo: false,
+      sac: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSwitch = this.handleSwitch.bind(this);
     this.handleRunButtonPressed = this.handleRunButtonPressed.bind(this);
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.name });
+  }
+
+  handleSwitch(e) {
+    this.setState({ [e.target.name]: e.target.checked });
   }
 
   handleRunButtonPressed() {
@@ -52,7 +63,12 @@ export default class CreateJobs extends Component {
         second_leg_reward: this.state.secondLegReward,
         main_engine_reward: this.state.mainEngineReward,
         side_engine_reward: this.state.sideEngineReward,
-        algorithm: this.state.algorithm,
+        dqn: this.state.dqn,
+        a2c: this.state.a2c,
+        ddpg: this.state.ddpg,
+        her: this.state.her,
+        ppo: this.state.ppo,
+        sac: this.state.sat
       }),
     };
     fetch("/api/create-job", requestOptions)
@@ -69,94 +85,97 @@ export default class CreateJobs extends Component {
               p: 2,
               height: 240,
               "& .MuiTextField-root": { m: 1, width: "28ch" },
+              "& .MuiFormGroup-root": { justifyContent: "center" },
             }}
           >
             <React.Fragment>
               <Title>Rewards</Title>
-              <FormControl>
-                <TextField
-                  required
-                  id="crash-reward"
-                  label="Crash Reward"
-                  type="number"
-                  name="crashReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultCrashReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <TextField
-                  required
-                  id="land-reward"
-                  label="Land Reward"
-                  type="number"
-                  name="landReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultLandReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <TextField
-                  required
-                  id="first-leg-reward"
-                  label="First Leg Reward"
-                  type="number"
-                  name="firstLegReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultFirstLegReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <TextField
-                  required
-                  id="second-leg-reward"
-                  label="Second Leg Reward"
-                  type="number"
-                  name="secondLegReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultSecondLegReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <TextField
-                  required
-                  id="main-engine-reward"
-                  label="Main Engine Reward"
-                  type="number"
-                  name="mainEngineReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultMainEngineReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <TextField
-                  required
-                  id="side-engine-reward"
-                  label="Side Engine Reward"
-                  type="number"
-                  name="sideEngineReward"
-                  onChange={this.handleChange}
-                  defaultValue={this.defaultSideEngineReward}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormControl>
+              <FormGroup row>
+                <FormControl>
+                  <TextField
+                    required
+                    id="crash-reward"
+                    label="Crash Reward"
+                    type="number"
+                    name="crashReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultCrashReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+                <FormControl>
+                  <TextField
+                    required
+                    id="land-reward"
+                    label="Land Reward"
+                    type="number"
+                    name="landReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultLandReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+                <FormControl>
+                  <TextField
+                    required
+                    id="first-leg-reward"
+                    label="First Leg Reward"
+                    type="number"
+                    name="firstLegReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultFirstLegReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+                <FormControl>
+                  <TextField
+                    required
+                    id="second-leg-reward"
+                    label="Second Leg Reward"
+                    type="number"
+                    name="secondLegReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultSecondLegReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+                <FormControl>
+                  <TextField
+                    required
+                    id="main-engine-reward"
+                    label="Main Engine Reward"
+                    type="number"
+                    name="mainEngineReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultMainEngineReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+                <FormControl>
+                  <TextField
+                    required
+                    id="side-engine-reward"
+                    label="Side Engine Reward"
+                    type="number"
+                    name="sideEngineReward"
+                    onChange={this.handleChange}
+                    defaultValue={this.defaultSideEngineReward}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </FormControl>
+              </FormGroup>
             </React.Fragment>
           </Paper>
         </Grid>
@@ -168,55 +187,61 @@ export default class CreateJobs extends Component {
               display: "flex",
               flexDirection: "column",
               height: 240,
+              "& .MuiFormGroup-root": { justifyContent: "center" },
             }}
           >
             <React.Fragment>
               <Title>Algorithms</Title>
-              <FormControl component="fieldset">
-                <RadioGroup
-                  row
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Switch />}
+                  name="dqn"
+                  label="DQN"
+                  labelPlacement="top"
+                  onChange={this.handleSwitch}
+                  checked={this.state.dqn}
+                />
+                <FormControlLabel
+                  control={<Switch />}
+                  name="a2c"
+                  label="A2C"
+                  labelPlacement="top"
+                  onChange={this.handleSwitch}
+                  checked={this.state.a2c}
+                />
+                <FormControlLabel
+                  control={<Switch />}
                   name="algorithm"
-                  defaultValue="DQN"
+                  label="DDPG"
+                  labelPlacement="top"
                   onChange={this.handleChange}
-                >
-                  <FormControlLabel
-                    value="DQN"
-                    control={<Radio color="primary" />}
-                    label="DQN"
-                    labelPlacement="top"
-                  />
-                  <FormControlLabel
-                    value="TEST"
-                    control={<Radio color="primary" />}
-                    label="TEST"
-                    labelPlacement="top"
-                  />
-                  <FormControlLabel
-                    value="TEST"
-                    control={<Radio color="primary" />}
-                    label="TEST"
-                    labelPlacement="top"
-                  />
-                  <FormControlLabel
-                    value="TEST"
-                    control={<Radio color="primary" />}
-                    label="TEST"
-                    labelPlacement="top"
-                  />
-                  <FormControlLabel
-                    value="TEST"
-                    control={<Radio color="primary" />}
-                    label="TEST"
-                    labelPlacement="top"
-                  />
-                  <FormControlLabel
-                    value="TEST"
-                    control={<Radio color="primary" />}
-                    label="TEST"
-                    labelPlacement="top"
-                  />
-                </RadioGroup>
-              </FormControl>
+                  checked={this.state.ddpg}
+                />
+                <FormControlLabel
+                  control={<Switch />}
+                  name="algorithm"
+                  label="HER"
+                  labelPlacement="top"
+                  onChange={this.handleChange}
+                  checked={this.state.her}
+                />
+                <FormControlLabel
+                  control={<Switch />}
+                  name="algorithm"
+                  label="PPO"
+                  labelPlacement="top"
+                  onChange={this.handleChange}
+                  checked={this.state.ppo}
+                />
+                <FormControlLabel
+                  control={<Switch />}
+                  name="algorithm"
+                  label="SAC"
+                  labelPlacement="top"
+                  onChange={this.handleChange}
+                  checked={this.state.sac}
+                />
+              </FormGroup>
             </React.Fragment>
           </Paper>
         </Grid>
