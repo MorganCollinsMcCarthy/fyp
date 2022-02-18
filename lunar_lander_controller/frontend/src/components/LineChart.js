@@ -24,13 +24,44 @@ ChartJS.register(
 
 const LineChart = (props) => {
   const [chart, setChart] = useState([]);
-
+  const [algorithms, setAlgorithms] = useState([]);
   useEffect(() => {
-    const getData = async () => {
+    const getAlgorithms = () => {
+      if (props.dqn) {
+        console.log(props.dqn);
+        setAlgorithms((algorithms) => [...algorithms, "DQN"]);
+        getData("DQN");
+      }
+      if (props.a2c) {
+        console.log(props.a2c);
+        setAlgorithms((algorithms) => [...algorithms, "A2C"]);
+        getData("A2C");
+      }
+      if (props.ddpg) {
+        setAlgorithms((algorithms) => [...algorithms, "DDPG"]);
+        getData("DDPG");
+      }
+      if (props.her) {
+        setAlgorithms((algorithms) => [...algorithms, "HER"]);
+        getData("HER");
+      }
+      if (props.ppo) {
+        setAlgorithms((algorithms) => [...algorithms, "PPO"]);
+        getData("PPO");
+      }
+      if (props.sac) {
+        setAlgorithms((algorithms) => [...algorithms, "SAC"]);
+        getData("SAC");
+      }
+    };
+
+    const getData = async (alg) => {
       await fetch(
         "http://127.0.0.1:8000/reinforcement_learning/logs/" +
           props.code +
-          "/DQN/progress.json"
+          "/" +
+          alg +
+          "/progress.json"
       )
         .then((response) => {
           if (response.ok) {
@@ -43,7 +74,7 @@ const LineChart = (props) => {
                 })
                 .join("\n");
               let data = filtered.match(/.+/g).map(JSON.parse);
-              setChart(data);
+              setChart((chart) => [...chart, data]);
             });
           }
         })
@@ -51,26 +82,37 @@ const LineChart = (props) => {
           console.log(error);
         });
     };
-    getData();
+    getAlgorithms();
   }, []);
 
-  const transformedData = chart.map((obj) => {
-    return {
-      x: obj.time_total_timesteps,
-      y: obj[props.type],
-    };
-  });
+  function transformData(i) {
+    const transformedData = chart[i]?.map((obj) => {
+      return { x: obj.time_total_timesteps, y: obj[props.type] };
+    });
+    return transformedData;
+  }
 
   const data = {
-    datasets: [
-      {
-        label: props.type,
-        showLine: true,
-        data: transformedData,
-        backgroundColor: "rgb(255, 99, 132)",
-      },
-    ],
+    datasets: [],
   };
+
+  for (var i = 0; i < chart.length; i++) {
+    const colours = [
+      "#ffa600",
+      "#00ff2f",
+      "#0d00ff",
+      "#ff03d1",
+      "#ff0000",
+      "#00eaff",
+    ];
+
+    data.datasets.push({
+      label: algorithms[i],
+      data: transformData(i),
+      showLine: true,
+      backgroundColor: colours[i],
+    });
+  }
 
   return <Scatter data={data} />;
 };

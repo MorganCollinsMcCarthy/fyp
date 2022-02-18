@@ -58,7 +58,7 @@ def dqn():
 
 
 def a2c():
-    log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/AC2"
+    log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/A2C"
     a2c_logger = configure(log_path, ["csv","json","tensorboard"])
     model = A2C("MlpPolicy", env, verbose=1)
     model.set_logger(a2c_logger)

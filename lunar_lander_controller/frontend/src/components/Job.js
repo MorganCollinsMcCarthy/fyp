@@ -20,13 +20,19 @@ export default class Job extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       crashReward: -100,
       landReward: 100,
       firstLegReward: 10,
       secondLegReward: 10,
       mainEngineReward: 0.3,
       sideEngineReward: 0.03,
-      algorithm: "DQN",
+      dqn: true,
+      a2c: false,
+      ddpg: false,
+      her: false,
+      ppo: false,
+      sac: false,
       url:
         "/reinforcement_learning/logs/" +
         this.props.match.params.jobCode +
@@ -60,6 +66,13 @@ export default class Job extends Component {
           secondLegReward: data.second_leg_reward,
           mainEngineReward: data.main_engine_reward,
           sideEngineReward: data.side_engine_reward,
+          dqn: data.dqn,
+          a2c: data.a2c,
+          ddpg: data.ddpg,
+          her: data.her,
+          ppo: data.ppo,
+          sac: data.sac,
+          loaded: true,
         });
       });
   }
@@ -102,9 +115,9 @@ export default class Job extends Component {
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="AC2"
+                        value="A2C"
                         control={<Radio color="primary" />}
-                        label="AC2"
+                        label="A2C"
                         labelPlacement="top"
                       />
                       <FormControlLabel
@@ -140,13 +153,35 @@ export default class Job extends Component {
           <Grid item xs={6}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Title>rollout_ep_rew_mean</Title>
-              <LineChart code={this.jobCode} type="rollout_ep_rew_mean" />
+              {this.state.loaded && (
+                <LineChart
+                  code={this.jobCode}
+                  type="rollout_ep_rew_mean"
+                  dqn={this.state.dqn}
+                  a2c={this.state.a2c}
+                  ddpg={this.state.ddpg}
+                  her={this.state.her}
+                  ppo={this.state.ppo}
+                  sac={this.state.sac}
+                />
+              )}
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Title>rollout_ep_len_mean</Title>
-              <LineChart code={this.jobCode} type="rollout_ep_len_mean" />
+              {this.state.loaded && (
+                <LineChart
+                  code={this.jobCode}
+                  type="rollout_ep_rew_mean"
+                  dqn={this.state.dqn}
+                  a2c={this.state.a2c}
+                  ddpg={this.state.ddpg}
+                  her={this.state.her}
+                  ppo={this.state.ppo}
+                  sac={this.state.sac}
+                />
+              )}
             </Paper>
           </Grid>
         </Grid>

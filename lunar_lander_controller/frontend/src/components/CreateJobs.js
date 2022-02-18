@@ -45,7 +45,7 @@ export default class CreateJobs extends Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.name });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSwitch(e) {
