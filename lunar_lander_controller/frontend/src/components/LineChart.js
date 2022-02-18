@@ -30,7 +30,7 @@ const LineChart = (props) => {
       await fetch(
         "http://127.0.0.1:8000/reinforcement_learning/logs/" +
           props.code +
-          "/progress.json"
+          "/DQN/progress.json"
       )
         .then((response) => {
           if (response.ok) {

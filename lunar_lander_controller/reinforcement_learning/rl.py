@@ -1,6 +1,7 @@
 import environment
 import sys
 import gym
+import subprocess
 
 from stable_baselines3 import DQN
 from stable_baselines3 import A2C
@@ -20,7 +21,7 @@ env.side_engine_reward = float(sys.argv[6])
 
 env = gym.wrappers.TimeLimit(env, max_episode_steps=3000)
 
-log_path = "./reinforcement_learning/logs/"+sys.argv[8]
+log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/"+sys.argv[7]
 # set up logger
 new_logger = configure(log_path, ["csv","json","tensorboard"])
 
@@ -34,17 +35,17 @@ model = DQN("MlpPolicy", env, verbose=1)
 
 # Set new logger
 model.set_logger(new_logger)
-model.learn(2000000,callback=eval_callback)
+model.learn(1000,callback=eval_callback)
 
-del model  # delete trained model to demonstrate loading
-model = DQN.load(log_path+"/best_model", env=env)
+#del model  # delete trained model to demonstrate loading
+#odel = DQN.load(log_path+"/best_model", env=env)
 
 video_length = 500
 
 vec_env = DummyVecEnv([lambda: env])
 vid_env = VecVideoRecorder(vec_env, log_path,
                        record_video_trigger=lambda x: x == 0, video_length=video_length,
-                       name_prefix="walker_3")
+                       name_prefix="temp")
 
 obs = vid_env.reset()
 for _ in range(video_length + 1):
@@ -53,3 +54,8 @@ for _ in range(video_length + 1):
 
 # Save the video
 vid_env.close()
+
+
+
+
+subprocess.Popen(['ffmpeg', '-i', 'reinforcement_learning/logs/'+sys.argv[8]+'/'+sys.argv[7]+'/temp-step-0-to-step-500.mp4', '-c:v', 'libx264', '-c:a', 'aac', 'reinforcement_learning/logs/'+sys.argv[8]+'/'+sys.argv[7]+'/output.mp4'])

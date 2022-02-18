@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LineChart from "./LineChart";
+import ReactPlayer from "react-player";
 import {
   FormControl,
   Grid,
@@ -8,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Box,
 } from "@mui/material";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -24,9 +26,27 @@ export default class Job extends Component {
       secondLegReward: 10,
       mainEngineReward: 0.3,
       sideEngineReward: 0.03,
+      algorithm: "DQN",
+      url:
+        "/reinforcement_learning/logs/" +
+        this.props.match.params.jobCode +
+        "/DQN/output.mp4",
     };
+    this.handleChange = this.handleChange.bind(this);
     this.jobCode = this.props.match.params.jobCode;
     this.getJobDetails();
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      url:
+        "/reinforcement_learning/logs/" +
+        this.jobCode +
+        "/" +
+        e.target.value +
+        "/output.mp4",
+    });
   }
 
   getJobDetails() {
@@ -55,20 +75,78 @@ export default class Job extends Component {
         <p>mainEngineReward: {this.state.mainEngineReward}</p>
         <p>sideEngineReward: {this.state.sideEngineReward}</p>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <React.Fragment>
-                <Title>rollout_ep_rew_mean</Title>
-                <LineChart code={this.jobCode} type="rollout_ep_rew_mean" />
-              </React.Fragment>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
+              <Title>{this.state.url}</Title>
+              <Grid container>
+                <Grid item xs={7}>
+                  <ReactPlayer
+                    playing={true}
+                    loop={true}
+                    muted={true}
+                    url={this.state.url}
+                  />
+                </Grid>
+                <Grid item xs={5}>
+                  <FormControl component="fieldset">
+                    <RadioGroup
+                      row
+                      name="algorithm"
+                      defaultValue="DQN"
+                      onChange={this.handleChange}
+                    >
+                      <FormControlLabel
+                        value="DQN"
+                        control={<Radio color="primary" />}
+                        label="DQN"
+                        labelPlacement="top"
+                      />
+                      <FormControlLabel
+                        value="TEST"
+                        control={<Radio color="primary" />}
+                        label="TEST"
+                        labelPlacement="top"
+                      />
+                      <FormControlLabel
+                        value="TEST"
+                        control={<Radio color="primary" />}
+                        label="TEST"
+                        labelPlacement="top"
+                      />
+                      <FormControlLabel
+                        value="TEST"
+                        control={<Radio color="primary" />}
+                        label="TEST"
+                        labelPlacement="top"
+                      />
+                      <FormControlLabel
+                        value="TEST"
+                        control={<Radio color="primary" />}
+                        label="TEST"
+                        labelPlacement="top"
+                      />
+                      <FormControlLabel
+                        value="TEST"
+                        control={<Radio color="primary" />}
+                        label="TEST"
+                        labelPlacement="top"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <React.Fragment>
-                <Title>rollout_ep_len_mean</Title>
-                <LineChart code={this.jobCode} type="rollout_ep_len_mean" />
-              </React.Fragment>
+              <Title>rollout_ep_rew_mean</Title>
+              <LineChart code={this.jobCode} type="rollout_ep_rew_mean" />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <Title>rollout_ep_len_mean</Title>
+              <LineChart code={this.jobCode} type="rollout_ep_len_mean" />
             </Paper>
           </Grid>
         </Grid>
