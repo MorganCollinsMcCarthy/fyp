@@ -21,41 +21,78 @@ env.side_engine_reward = float(sys.argv[6])
 
 env = gym.wrappers.TimeLimit(env, max_episode_steps=3000)
 
-log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/"+sys.argv[7]
-# set up logger
-new_logger = configure(log_path, ["csv","json","tensorboard"])
 
 
-# Use deterministic actions for evaluation
-eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
+
+
+
+
+
+
+def dqn():
+    log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/DQN"
+    dqn_logger = configure(log_path, ["csv","json","tensorboard"])
+    model = DQN("MlpPolicy", env, verbose=1)
+
+    eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
                              deterministic=True, render=False)
 
-model = DQN("MlpPolicy", env, verbose=1)
+    model.set_logger(dqn_logger)
+    model.learn(1000,callback=eval_callback)
+    
+    video_length = 500
+    vec_env = DummyVecEnv([lambda: env])
+    vid_env = VecVideoRecorder(vec_env, log_path,
+                        record_video_trigger=lambda x: x == 0, video_length=video_length,
+                        name_prefix="temp")
+
+    obs = vid_env.reset()
+    for _ in range(video_length + 1):
+        action, _states = model.predict(obs)
+        obs, _, _, _ = vid_env.step(action)
+
+    # Save the video
+    vid_env.close()
+
+    subprocess.Popen(['ffmpeg', '-i', log_path+'/temp-step-0-to-step-500.mp4', '-c:v', 'libx264', '-c:a', 'aac', log_path+'/output.mp4'])
 
 
-# Set new logger
-model.set_logger(new_logger)
-model.learn(1000,callback=eval_callback)
+def a2c():
+    log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/AC2"
+    a2c_logger = configure(log_path, ["csv","json","tensorboard"])
+    model = A2C("MlpPolicy", env, verbose=1)
+    model.set_logger(a2c_logger)
+
+    eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
+                             deterministic=True, render=False)
+
+    model.learn(1000,callback=eval_callback)
+
+    video_length = 500
+    vec_env = DummyVecEnv([lambda: env])
+    vid_env = VecVideoRecorder(vec_env, log_path,
+                        record_video_trigger=lambda x: x == 0, video_length=video_length,
+                        name_prefix="temp")
+
+    obs = vid_env.reset()
+    for _ in range(video_length + 1):
+        action, _states = model.predict(obs)
+        obs, _, _, _ = vid_env.step(action)
+
+    # Save the video
+    vid_env.close()
+
+    subprocess.Popen(['ffmpeg', '-i', log_path+'/temp-step-0-to-step-500.mp4', '-c:v', 'libx264', '-c:a', 'aac', log_path+'/output.mp4'])
+
+
+
+
+
+
+dqn()
+a2c()
+
 
 #del model  # delete trained model to demonstrate loading
 #odel = DQN.load(log_path+"/best_model", env=env)
 
-video_length = 500
-
-vec_env = DummyVecEnv([lambda: env])
-vid_env = VecVideoRecorder(vec_env, log_path,
-                       record_video_trigger=lambda x: x == 0, video_length=video_length,
-                       name_prefix="temp")
-
-obs = vid_env.reset()
-for _ in range(video_length + 1):
-    action, _states = model.predict(obs)
-    obs, _, _, _ = vid_env.step(action)
-
-# Save the video
-vid_env.close()
-
-
-
-
-subprocess.Popen(['ffmpeg', '-i', 'reinforcement_learning/logs/'+sys.argv[8]+'/'+sys.argv[7]+'/temp-step-0-to-step-500.mp4', '-c:v', 'libx264', '-c:a', 'aac', 'reinforcement_learning/logs/'+sys.argv[8]+'/'+sys.argv[7]+'/output.mp4'])
