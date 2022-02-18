@@ -68,7 +68,7 @@ export default class CreateJobs extends Component {
         ddpg: this.state.ddpg,
         her: this.state.her,
         ppo: this.state.ppo,
-        sac: this.state.sat
+        sac: this.state.sac
       }),
     };
     fetch("/api/create-job", requestOptions)
@@ -214,7 +214,7 @@ export default class CreateJobs extends Component {
                   name="ddpg"
                   label="DDPG"
                   labelPlacement="top"
-                  onChange={this.handleChange}
+                  onChange={this.handleSwitch}
                   checked={this.state.ddpg}
                 />
                 <FormControlLabel
@@ -222,7 +222,7 @@ export default class CreateJobs extends Component {
                   name="her"
                   label="HER"
                   labelPlacement="top"
-                  onChange={this.handleChange}
+                  onChange={this.handleSwitch}
                   checked={this.state.her}
                 />
                 <FormControlLabel
@@ -230,7 +230,7 @@ export default class CreateJobs extends Component {
                   name="ppo"
                   label="PPO"
                   labelPlacement="top"
-                  onChange={this.handleChange}
+                  onChange={this.handleSwitch}
                   checked={this.state.ppo}
                 />
                 <FormControlLabel
@@ -238,7 +238,7 @@ export default class CreateJobs extends Component {
                   name="sac"
                   label="SAC"
                   labelPlacement="top"
-                  onChange={this.handleChange}
+                  onChange={this.handleSwitch}
                   checked={this.state.sac}
                 />
               </FormGroup>
