@@ -20,6 +20,7 @@ def generate_unique_code():
 
     return code
 
+
 def popen_and_call(on_exit, popen_args):
     def run_in_thread(on_exit, popen_args):
         proc = subprocess.Popen(popen_args)
@@ -31,6 +32,7 @@ def popen_and_call(on_exit, popen_args):
     return thread
 
 # Create your views here.
+
 
 class JobView(generics.ListAPIView):
     queryset = Job.objects.all()
@@ -66,9 +68,15 @@ class CreateJobView(APIView):
             second_leg_reward = serializer.data.get('second_leg_reward')
             main_engine_reward = serializer.data.get('main_engine_reward')
             side_engine_reward = serializer.data.get('side_engine_reward')
-            algorithm = serializer.data.get('algorithm')
-            job = Job(code=code,crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
-                      second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward, algorithm=algorithm)
+            dqn = serializer.data.get('dqn')
+            a2c = serializer.data.get('a2c')
+            ddpg = serializer.data.get('ddpg')
+            her = serializer.data.get('her')
+            ppo = serializer.data.get('ppo')
+            sac = serializer.data.get('sac')
+            job = Job(code=code, crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
+                      second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward, 
+                      dqn=dqn, a2c=a2c, ddpg=ddpg, her=her, ppo=ppo, sac=sac)
             job.save()
 
             def jobComplete():
@@ -76,8 +84,7 @@ class CreateJobView(APIView):
                 job.save()
 
             popen_and_call(jobComplete, ['python', 'reinforcement_learning/rl.py', str(crash_reward), str(land_reward),
-                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), algorithm, code])
-
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), "DQN", code])
 
             return Response(JobSerializer(job).data, status=status.HTTP_201_CREATED)
 

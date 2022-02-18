@@ -211,7 +211,7 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="algorithm"
+                  name="ddpg"
                   label="DDPG"
                   labelPlacement="top"
                   onChange={this.handleChange}
@@ -219,7 +219,7 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="algorithm"
+                  name="her"
                   label="HER"
                   labelPlacement="top"
                   onChange={this.handleChange}
@@ -227,7 +227,7 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="algorithm"
+                  name="ppo"
                   label="PPO"
                   labelPlacement="top"
                   onChange={this.handleChange}
@@ -235,7 +235,7 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="algorithm"
+                  name="sac"
                   label="SAC"
                   labelPlacement="top"
                   onChange={this.handleChange}
