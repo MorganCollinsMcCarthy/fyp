@@ -70,21 +70,42 @@ class CreateJobView(APIView):
             side_engine_reward = serializer.data.get('side_engine_reward')
             dqn = serializer.data.get('dqn')
             a2c = serializer.data.get('a2c')
-            ddpg = serializer.data.get('ddpg')
-            her = serializer.data.get('her')
+            ars = serializer.data.get('ars')
+            trpo = serializer.data.get('trpo')
             ppo = serializer.data.get('ppo')
-            sac = serializer.data.get('sac')
+            qrdqn = serializer.data.get('qrdqn')
             job = Job(code=code, crash_reward=crash_reward, land_reward=land_reward, first_leg_reward=first_leg_reward,
                       second_leg_reward=second_leg_reward, main_engine_reward=main_engine_reward, side_engine_reward=side_engine_reward, 
-                      dqn=dqn, a2c=a2c, ddpg=ddpg, her=her, ppo=ppo, sac=sac)
+                      dqn=dqn, a2c=a2c, ars=ars, trpo=trpo, ppo=ppo, qrdqn=qrdqn)
             job.save()
 
             def jobComplete():
                 job.complete = True
                 job.save()
-
-            popen_and_call(jobComplete, ['python', 'reinforcement_learning/rl.py', str(crash_reward), str(land_reward),
-                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), "DQN", code])
+            
+            if(dqn):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/dqn.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
+            
+            if(a2c):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/a2c.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
+            
+            if(ars):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/ars.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
+            
+            if(trpo):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/trpo.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
+            
+            if(ppo):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/ppo.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
+            
+            if(qrdqn):
+                popen_and_call(jobComplete, ['python', 'reinforcement_learning/algorithms/qrdqn.py', str(crash_reward), str(land_reward),
+                       str(first_leg_reward), str(second_leg_reward), str(main_engine_reward), str(side_engine_reward), code])
 
             return Response(JobSerializer(job).data, status=status.HTTP_201_CREATED)
 

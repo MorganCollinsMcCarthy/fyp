@@ -34,10 +34,10 @@ export default class CreateJobs extends Component {
       sideEngineReward: this.defaultSideEngineReward,
       dqn: true,
       a2c: false,
-      ddpg: false,
-      her: false,
+      ars: false,
+      trpo: false,
       ppo: false,
-      sac: false,
+      qrdqn: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
@@ -65,10 +65,10 @@ export default class CreateJobs extends Component {
         side_engine_reward: this.state.sideEngineReward,
         dqn: this.state.dqn,
         a2c: this.state.a2c,
-        ddpg: this.state.ddpg,
-        her: this.state.her,
+        ars: this.state.ars,
+        trpo: this.state.trpo,
         ppo: this.state.ppo,
-        sac: this.state.sac
+        qrdqn: this.state.qrdqn
       }),
     };
     fetch("/api/create-job", requestOptions)
@@ -211,19 +211,19 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="ddpg"
-                  label="DDPG"
+                  name="ars"
+                  label="ARS"
                   labelPlacement="top"
                   onChange={this.handleSwitch}
-                  checked={this.state.ddpg}
+                  checked={this.state.ars}
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="her"
-                  label="HER"
+                  name="trpo"
+                  label="TRPO"
                   labelPlacement="top"
                   onChange={this.handleSwitch}
-                  checked={this.state.her}
+                  checked={this.state.trpo}
                 />
                 <FormControlLabel
                   control={<Switch />}
@@ -235,11 +235,11 @@ export default class CreateJobs extends Component {
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  name="sac"
-                  label="SAC"
+                  name="qrdqn"
+                  label="QRDQN"
                   labelPlacement="top"
                   onChange={this.handleSwitch}
-                  checked={this.state.sac}
+                  checked={this.state.qrdqn}
                 />
               </FormGroup>
             </React.Fragment>

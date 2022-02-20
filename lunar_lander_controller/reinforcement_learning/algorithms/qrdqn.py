@@ -3,7 +3,7 @@ import sys
 import gym
 import subprocess
 
-from stable_baselines3 import SAC
+from sb3_contrib import QRDQN
 from stable_baselines3.common.logger import configure
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.evaluation import evaluate_policy
@@ -20,15 +20,16 @@ env.side_engine_reward = float(sys.argv[6])
 
 env = gym.wrappers.TimeLimit(env, max_episode_steps=3000)
 
-log_path = "./reinforcement_learning/logs/"+sys.argv[8]+"/SAC"
+log_path = "./reinforcement_learning/logs/"+sys.argv[7]+"/QRDQN"
 logger = configure(log_path, ["csv", "json", "tensorboard"])
-model = SAC("MlpPolicy", env, verbose=1)
+policy_kwargs = dict(n_quantiles=50)
+model = QRDQN("MlpPolicy", env, policy_kwargs=policy_kwargs, verbose=1)
 model.set_logger(logger)
 
 eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
                              deterministic=True, render=False)
 
-model.learn(10000, callback=eval_callback)
+model.learn(50000, callback=eval_callback)
 
 video_length = 500
 vec_env = DummyVecEnv([lambda: env])

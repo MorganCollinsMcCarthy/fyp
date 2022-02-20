@@ -29,10 +29,10 @@ export default class Job extends Component {
       sideEngineReward: 0.03,
       dqn: true,
       a2c: false,
-      ddpg: false,
-      her: false,
+      ars: false,
+      trpo: false,
       ppo: false,
-      sac: false,
+      qrdqn: false,
       url:
         "/reinforcement_learning/logs/" +
         this.props.match.params.jobCode +
@@ -68,10 +68,10 @@ export default class Job extends Component {
           sideEngineReward: data.side_engine_reward,
           dqn: data.dqn,
           a2c: data.a2c,
-          ddpg: data.ddpg,
-          her: data.her,
+          ars: data.ars,
+          trpo: data.trpo,
           ppo: data.ppo,
-          sac: data.sac,
+          qrdqn: data.qrdqn,
           loaded: true,
         });
       });
@@ -121,15 +121,15 @@ export default class Job extends Component {
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="DDPG"
+                        value="ARS"
                         control={<Radio color="primary" />}
-                        label="DDPG"
+                        label="ARS"
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="HER"
+                        value="TRPO"
                         control={<Radio color="primary" />}
-                        label="HER"
+                        label="TRPO"
                         labelPlacement="top"
                       />
                       <FormControlLabel
@@ -139,9 +139,9 @@ export default class Job extends Component {
                         labelPlacement="top"
                       />
                       <FormControlLabel
-                        value="SAC"
+                        value="QRDQN"
                         control={<Radio color="primary" />}
-                        label="SAC"
+                        label="QRDQN"
                         labelPlacement="top"
                       />
                     </RadioGroup>
@@ -159,10 +159,10 @@ export default class Job extends Component {
                   type="rollout_ep_rew_mean"
                   dqn={this.state.dqn}
                   a2c={this.state.a2c}
-                  ddpg={this.state.ddpg}
-                  her={this.state.her}
+                  ars={this.state.ars}
+                  trpo={this.state.trpo}
                   ppo={this.state.ppo}
-                  sac={this.state.sac}
+                  qrdqn={this.state.qrdqn}
                 />
               )}
             </Paper>
@@ -176,10 +176,10 @@ export default class Job extends Component {
                   type="rollout_ep_len_mean"
                   dqn={this.state.dqn}
                   a2c={this.state.a2c}
-                  ddpg={this.state.ddpg}
-                  her={this.state.her}
+                  ars={this.state.ars}
+                  trpo={this.state.trpo}
                   ppo={this.state.ppo}
-                  sac={this.state.sac}
+                  qrdqn={this.state.qrdqn}
                 />
               )}
             </Paper>

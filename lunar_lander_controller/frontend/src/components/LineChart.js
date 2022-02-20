@@ -33,17 +33,17 @@ const LineChart = (props) => {
       if (props.a2c) {
         getData("A2C")
       }
-      if (props.ddpg) {
-        getData("DDPG");
+      if (props.ars) {
+        getData("ARS");
       }
-      if (props.her) {
-        getData("HER");
+      if (props.trpo) {
+        getData("TRPO");
       }
       if (props.ppo) {
         getData("PPO");
       }
-      if (props.sac) {
-        getData("SAC");
+      if (props.qrdqn) {
+        getData("QRDQN");
       }
     };
 
