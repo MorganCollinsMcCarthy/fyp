@@ -28,29 +28,21 @@ const LineChart = (props) => {
   useEffect(() => {
     const getAlgorithms = () => {
       if (props.dqn) {
-        console.log(props.dqn);
-        setAlgorithms((algorithms) => [...algorithms, "DQN"]);
-        getData("DQN");
+        getData("DQN")
       }
       if (props.a2c) {
-        console.log(props.a2c);
-        setAlgorithms((algorithms) => [...algorithms, "A2C"]);
-        getData("A2C");
+        getData("A2C")
       }
       if (props.ddpg) {
-        setAlgorithms((algorithms) => [...algorithms, "DDPG"]);
         getData("DDPG");
       }
       if (props.her) {
-        setAlgorithms((algorithms) => [...algorithms, "HER"]);
         getData("HER");
       }
       if (props.ppo) {
-        setAlgorithms((algorithms) => [...algorithms, "PPO"]);
         getData("PPO");
       }
       if (props.sac) {
-        setAlgorithms((algorithms) => [...algorithms, "SAC"]);
         getData("SAC");
       }
     };
@@ -75,6 +67,7 @@ const LineChart = (props) => {
                 .join("\n");
               let data = filtered.match(/.+/g).map(JSON.parse);
               setChart((chart) => [...chart, data]);
+              setAlgorithms((algorithms) => [...algorithms, alg]);
             });
           }
         })
@@ -96,6 +89,10 @@ const LineChart = (props) => {
     datasets: [],
   };
 
+  const options = {
+    pointRadius: 0,
+  }
+
   for (var i = 0; i < chart.length; i++) {
     const colours = [
       "#ffa600",
@@ -111,10 +108,11 @@ const LineChart = (props) => {
       data: transformData(i),
       showLine: true,
       backgroundColor: colours[i],
+      borderColor: colours[i],
     });
   }
 
-  return <Scatter data={data} />;
+  return <Scatter data={data} options={options} />;
 };
 
 export default LineChart;

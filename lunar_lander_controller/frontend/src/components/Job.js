@@ -173,7 +173,7 @@ export default class Job extends Component {
               {this.state.loaded && (
                 <LineChart
                   code={this.jobCode}
-                  type="rollout_ep_rew_mean"
+                  type="rollout_ep_len_mean"
                   dqn={this.state.dqn}
                   a2c={this.state.a2c}
                   ddpg={this.state.ddpg}
