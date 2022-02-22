@@ -11,10 +11,10 @@ import {
   FormControlLabel,
   Box,
 } from "@mui/material";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Title from "./Title";
 import Paper from "@mui/material/Paper";
+import { saveAs } from "file-saver";
 
 export default class Job extends Component {
   constructor(props) {
@@ -39,20 +39,21 @@ export default class Job extends Component {
         "/DQN",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
     this.jobCode = this.props.match.params.jobCode;
     this.getJobDetails();
-    
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
     this.setState({
       url:
-        "/reinforcement_learning/logs/" +
-        this.jobCode +
-        "/" +
-        e.target.value
+        "/reinforcement_learning/logs/" + this.jobCode + "/" + e.target.value,
     });
+  }
+
+  handleDownload(file) {
+    saveAs(this.state.url + "/" + file);
   }
 
   getJobDetails() {
@@ -90,14 +91,14 @@ export default class Job extends Component {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-              <Title>{this.state.url+"/output.mp4"}</Title>
+              <Title>{this.state.url + "/output.mp4"}</Title>
               <Grid container>
                 <Grid item xs={7}>
                   <ReactPlayer
                     playing={true}
                     loop={true}
                     muted={true}
-                    url={this.state.url+"/output.mp4"}
+                    url={this.state.url + "/output.mp4"}
                   />
                 </Grid>
                 <Grid item xs={5}>
@@ -146,6 +147,27 @@ export default class Job extends Component {
                       />
                     </RadioGroup>
                   </FormControl>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleDownload("best_model.zip")}
+                  >
+                    Download Model
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleDownload("tfevents.0")}
+                  >
+                    Download Tensorboard
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleDownload("progress.csv")}
+                  >
+                    Download CSV
+                  </Button>
                 </Grid>
               </Grid>
             </Paper>
