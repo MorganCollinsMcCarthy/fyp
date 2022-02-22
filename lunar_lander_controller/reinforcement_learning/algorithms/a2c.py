@@ -2,6 +2,7 @@ import environment
 import sys
 import gym
 import subprocess
+import os
 
 from stable_baselines3 import A2C
 from stable_baselines3.common.logger import configure
@@ -46,3 +47,9 @@ vid_env.close()
 
 subprocess.Popen(['ffmpeg', '-i', log_path+'/temp-step-0-to-step-500.mp4',
                   '-c:v', 'libx264', '-c:a', 'aac', log_path+'/output.mp4'])
+
+files = os.listdir(log_path)
+for file in files:
+    if 'events.out.tfevents' in file:
+        print(file)
+        os.rename(log_path+'/'+file, log_path+'/tfevents.0')

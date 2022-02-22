@@ -36,11 +36,12 @@ export default class Job extends Component {
       url:
         "/reinforcement_learning/logs/" +
         this.props.match.params.jobCode +
-        "/DQN/output.mp4",
+        "/DQN",
     };
     this.handleChange = this.handleChange.bind(this);
     this.jobCode = this.props.match.params.jobCode;
     this.getJobDetails();
+    
   }
 
   handleChange(e) {
@@ -50,8 +51,7 @@ export default class Job extends Component {
         "/reinforcement_learning/logs/" +
         this.jobCode +
         "/" +
-        e.target.value +
-        "/output.mp4",
+        e.target.value
     });
   }
 
@@ -90,14 +90,14 @@ export default class Job extends Component {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
-              <Title>{this.state.url}</Title>
+              <Title>{this.state.url+"/output.mp4"}</Title>
               <Grid container>
                 <Grid item xs={7}>
                   <ReactPlayer
                     playing={true}
                     loop={true}
                     muted={true}
-                    url={this.state.url}
+                    url={this.state.url+"/output.mp4"}
                   />
                 </Grid>
                 <Grid item xs={5}>

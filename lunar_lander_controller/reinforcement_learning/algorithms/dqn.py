@@ -2,6 +2,7 @@ import environment
 import sys
 import gym
 import subprocess
+import os
 
 from stable_baselines3 import DQN
 from stable_baselines3.common.logger import configure
@@ -28,7 +29,7 @@ model.set_logger(logger)
 eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
                              deterministic=True, render=False)
 
-model.learn(3000000, callback=eval_callback,tb_log_name="DQN")
+model.learn(10000, callback=eval_callback)
 
 video_length = 500
 vec_env = DummyVecEnv([lambda: env])
@@ -46,3 +47,9 @@ vid_env.close()
 
 subprocess.Popen(['ffmpeg', '-i', log_path+'/temp-step-0-to-step-500.mp4',
                   '-c:v', 'libx264', '-c:a', 'aac', log_path+'/output.mp4'])
+
+files = os.listdir(log_path)
+for file in files:
+    if 'events.out.tfevents' in file:
+        print(file)
+        os.rename(log_path+'/'+file, log_path+'/tfevents.0')
