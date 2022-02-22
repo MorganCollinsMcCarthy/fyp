@@ -28,7 +28,7 @@ model.set_logger(logger)
 eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
                              deterministic=True, render=False)
 
-model.learn(50000, callback=eval_callback)
+model.learn(3000000, callback=eval_callback)
 
 video_length = 500
 vec_env = DummyVecEnv([lambda: env])

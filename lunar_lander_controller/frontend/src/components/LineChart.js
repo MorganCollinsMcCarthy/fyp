@@ -91,6 +91,7 @@ const LineChart = (props) => {
 
   const options = {
     pointRadius: 0,
+    borderWidth: 2
   }
 
   for (var i = 0; i < chart.length; i++) {

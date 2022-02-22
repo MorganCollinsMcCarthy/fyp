@@ -150,7 +150,7 @@ export default class Job extends Component {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Title>rollout_ep_rew_mean</Title>
               {this.state.loaded && (
@@ -167,7 +167,7 @@ export default class Job extends Component {
               )}
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Title>rollout_ep_len_mean</Title>
               {this.state.loaded && (
