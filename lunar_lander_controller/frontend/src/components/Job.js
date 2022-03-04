@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LineChart from "./LineChart";
+import BarChart from "./BarChart";
 import ReactPlayer from "react-player";
 import {
   FormControl,
@@ -90,7 +91,7 @@ export default class Job extends Component {
         <p>sideEngineReward: {this.state.sideEngineReward}</p>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper sx={{ p: 1, display: "flex", flexDirection: "column" }}>
+            <Paper sx={{ p: 3, display: "flex", flexDirection: "column" }}>
               <Title>{this.state.url + "/output.mp4"}</Title>
               <Grid container>
                 <Grid item xs={7}>
@@ -147,26 +148,30 @@ export default class Job extends Component {
                       />
                     </RadioGroup>
                   </FormControl>
+                    <BarChart
+                      url={this.state.url}
+                      type="rollout_ep_rew_mean"
+                    />
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => this.handleDownload("best_model.zip")}
                   >
-                    Download Model
+                    Model
                   </Button>
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => this.handleDownload("tfevents.0")}
                   >
-                    Download Tensorboard
+                    Tensorboard
                   </Button>
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => this.handleDownload("progress.csv")}
                   >
-                    Download CSV
+                    CSV
                   </Button>
                 </Grid>
               </Grid>

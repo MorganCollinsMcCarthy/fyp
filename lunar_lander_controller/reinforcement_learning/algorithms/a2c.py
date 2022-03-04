@@ -29,9 +29,9 @@ model.set_logger(logger)
 eval_callback = EvalCallback(env, best_model_save_path=log_path, eval_freq=100000,
                              deterministic=True, render=False)
 
-model.learn(3000000, callback=eval_callback)
+model.learn(2950000, callback=eval_callback)
 
-video_length = 500
+video_length = 1000
 vec_env = DummyVecEnv([lambda: env])
 vid_env = VecVideoRecorder(vec_env, log_path,
                            record_video_trigger=lambda x: x == 0, video_length=video_length,
@@ -53,3 +53,13 @@ for file in files:
     if 'events.out.tfevents' in file:
         print(file)
         os.rename(log_path+'/'+file, log_path+'/tfevents.0')
+
+rewards, length = evaluate_policy(model, 
+                                                                model.get_env(), 
+                                                                n_eval_episodes=10,
+                                                                return_episode_rewards=True)
+
+textfile = open(log_path+"/eval.txt", "w")
+for element in rewards:
+    textfile.write(str(element) + ",")
+textfile.close()
