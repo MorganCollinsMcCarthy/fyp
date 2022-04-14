@@ -82,13 +82,7 @@ export default class Job extends Component {
   render() {
     return (
       <div>
-        <h2>{this.jobCode}</h2>
-        <p>crashReward: {this.state.crashReward}</p>
-        <p>landReward: {this.state.landReward}</p>
-        <p>firstLegReward: {this.state.firstLegReward}</p>
-        <p>secondLegReward: {this.state.secondLegReward}</p>
-        <p>mainEngineReward: {this.state.mainEngineReward}</p>
-        <p>sideEngineReward: {this.state.sideEngineReward}</p>
+        <Title>{this.jobCode}</Title>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper sx={{ p: 3, display: "flex", flexDirection: "column" }}>
